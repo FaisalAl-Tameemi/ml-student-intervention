@@ -1,28 +1,13 @@
 # Project 2: Supervised Learning
+
 ## Building a Student Intervention System
 
-### Install
+### Description
 
-This project requires **Python 2.7** and the following Python libraries installed:
+A local school district has a goal to reach a 95% graduation rate by the end of the decade by identifying students who need intervention before they drop out of school. As a software engineer contacted by the school district, your task is to model the factors that predict how likely a student is to pass their high school final exam, by constructing an intervention system that leverages supervised learning techniques. The board of supervisors has asked that you find the most effective model that uses the least amount of computation costs to save on the budget. You will need to analyze the dataset on students' performance and develop a model that will predict the likelihood that a given student will pass, quantifying whether an intervention is necessary.
 
-- [NumPy](http://www.numpy.org/)
-- [Pandas](http://pandas.pydata.org)
-- [scikit-learn](http://scikit-learn.org/stable/)
 
-You will also need to have software installed to run and execute an [iPython Notebook](http://ipython.org/notebook.html)
-
-Udacity recommends our students install [Anaconda](https://www.continuum.io/downloads), a pre-packaged Python distribution that contains all of the necessary libraries and software for this project.
-
-### Code
-
-Template code is provided in the notebook `student_intervention.ipynb` notebook file. While some code has already been implemented to get you started, you will need to implement additional functionality when requested to successfully complete the project.
-
-### Run
-
-```ipython notebook student_intervention.ipynb```  
-```jupyter notebook student_intervention.ipynb```
-
-## Data
+### Data
 
 The dataset used in this project is included as `student-data.csv`. This dataset has the following attributes:
 

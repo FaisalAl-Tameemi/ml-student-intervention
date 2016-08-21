@@ -1,20 +1,19 @@
 
 # Machine Learning Engineer Nanodegree
+
 ## Supervised Learning
-## Project 2: Building a Student Intervention System
 
-Welcome to the second project of the Machine Learning Engineer Nanodegree! In this notebook, some template code has already been provided for you, and it will be your job to implement the additional functionality necessary to successfully complete this project. Sections that begin with **'Implementation'** in the header indicate that the following block of code will require additional functionality which you must provide. Instructions will be provided for each section and the specifics of the implementation are marked in the code block with a `'TODO'` statement. Please be sure to read the instructions carefully!
+### Description
 
-In addition to implementing code, there will be questions that you must answer which relate to the project and your implementation. Each section where you will answer a question is preceded by a **'Question X'** header. Carefully read each question and provide thorough answers in the following text boxes that begin with **'Answer:'**. Your project submission will be evaluated based on your answers to each of the questions and the implementation you provide.  
+A local school district has a goal to reach a 95% graduation rate by the end of the decade by identifying students who need intervention before they drop out of school. As a software engineer contacted by the school district, your task is to model the factors that predict how likely a student is to pass their high school final exam, by constructing an intervention system that leverages supervised learning techniques. The board of supervisors has asked that you find the most effective model that uses the least amount of computation costs to save on the budget. You will need to analyze the dataset on students' performance and develop a model that will predict the likelihood that a given student will pass, quantifying whether an intervention is necessary.
 
->**Note:** Code and Markdown cells can be executed using the **Shift + Enter** keyboard shortcut. In addition, Markdown cells can be edited by typically double-clicking the cell to enter edit mode.
 
 ### Question 1 - Classification vs. Regression
 *Your goal for this project is to identify students who might need early intervention before they fail to graduate. Which type of supervised learning problem is this, classification or regression? Why?*
 
 **Answer: **
 
-This is classification problem because the output that we are looking for will be used to determine whether or not an intervention is needed for a given student. 
+This is classification problem because the output that we are looking for will be used to determine whether or not an intervention is needed for a given student.
 
 If this was a Regression problem, the question we would ask could be, "What grade will this student graduate with?".
 
@@ -79,9 +78,9 @@ print "F1 score for all 'yes' on students: {:.4f}".format(score)
     Number of students who passed: 265
     Number of students who failed: 130
     Graduation rate of the class: 67.09%
-    
+
     ----------------------
-    
+
     F1 score for all 'yes' on students: 0.8030
 
 
@@ -99,7 +98,7 @@ Run the code cell below to separate the student data into feature and target col
 feature_cols = list(student_data.columns[:-1])
 
 # Extract target column 'passed'
-target_col = student_data.columns[-1] 
+target_col = student_data.columns[-1]
 
 # Show the list of columns
 print "Feature columns:\n{}".format(feature_cols)
@@ -116,9 +115,9 @@ print X_all.head()
 
     Feature columns:
     ['school', 'sex', 'age', 'address', 'famsize', 'Pstatus', 'Medu', 'Fedu', 'Mjob', 'Fjob', 'reason', 'guardian', 'traveltime', 'studytime', 'failures', 'schoolsup', 'famsup', 'paid', 'activities', 'nursery', 'higher', 'internet', 'romantic', 'famrel', 'freetime', 'goout', 'Dalc', 'Walc', 'health', 'absences']
-    
+
     Target column: passed
-    
+
     Feature values:
       school sex  age address famsize Pstatus  Medu  Fedu     Mjob      Fjob  \
     0     GP   F   18       U     GT3       A     4     4  at_home   teacher   
@@ -126,21 +125,21 @@ print X_all.head()
     2     GP   F   15       U     LE3       T     1     1  at_home     other   
     3     GP   F   15       U     GT3       T     4     2   health  services   
     4     GP   F   16       U     GT3       T     3     3    other     other   
-    
+
         ...    higher internet  romantic  famrel  freetime goout Dalc Walc health  \
     0   ...       yes       no        no       4         3     4    1    1      3   
     1   ...       yes      yes        no       5         3     3    1    1      3   
     2   ...       yes      yes        no       4         3     2    2    3      3   
     3   ...       yes      yes       yes       3         2     2    1    1      5   
     4   ...       yes       no        no       4         3     2    1    2      5   
-    
+
       absences  
     0        6  
     1        4  
     2       10  
     3        2  
     4        4  
-    
+
     [5 rows x 30 columns]
 
 
@@ -157,13 +156,13 @@ These generated columns are sometimes called _dummy variables_, and we will use 
 def preprocess_features(X):
     ''' Preprocesses the student data and converts non-numeric binary variables into
         binary (0/1) variables. Converts categorical variables into dummy variables. '''
-    
+
     # Initialize new output DataFrame
     output = pd.DataFrame(index = X.index)
 
     # Investigate each feature column for the data
     for col, col_data in X.iteritems():
-        
+
         # If data type is non-numeric, replace all yes/no values with 1/0
         if col_data.dtype == object:
             col_data = col_data.replace(['yes', 'no'], [1, 0])
@@ -172,10 +171,10 @@ def preprocess_features(X):
         if col_data.dtype == object:
             # Example: 'school' => 'school_GP' and 'school_MS'
             col_data = pd.get_dummies(col_data, prefix = col)  
-        
+
         # Collect the revised columns
         output = output.join(col_data)
-    
+
     return output
 
 X_all = preprocess_features(X_all)
@@ -201,9 +200,9 @@ from sklearn.utils import shuffle
 # shuffle the data
 X_all, y_all = shuffle(X_all, y_all, random_state=42)
 
-# split the data into training and testing sets, 
+# split the data into training and testing sets,
 # use `stratify` to maintain balance between classifications
-X_train, X_test, y_train, y_test = train_test_split(X_all, y_all, stratify=y_all, 
+X_train, X_test, y_train, y_test = train_test_split(X_all, y_all, stratify=y_all,
                                                     test_size=0.24, random_state=42)
 
 # Show the results of the split
@@ -251,7 +250,7 @@ The algorithims chosen are then as follows:
 - _Strengths_
     - Avoids localization problems
     - Can use the kernel trick
-    - Accurate with small & clean datasets 
+    - Accurate with small & clean datasets
     - Effecient since it only uses a subset of the data
 
 - _Weaknesses_
@@ -305,24 +304,24 @@ Run the code cell below to initialize three helper functions which you can use f
 ```python
 def train_classifier(clf, X_train, y_train):
     ''' Fits a classifier to the training data. '''
-    
+
     # Start the clock, train the classifier, then stop the clock
     start = time()
     clf.fit(X_train, y_train)
     end = time()
-    
+
     # Print the results
     print "Trained model in {:.4f} seconds".format(end - start)
 
-    
+
 def predict_labels(clf, features, target):
     ''' Makes predictions using a fit classifier based on F1 score. '''
-    
+
     # Start the clock, make predictions, then stop the clock
     start = time()
     y_pred = clf.predict(features)
     end = time()
-    
+
     # Print and return results
     print "Made predictions in {:.4f} seconds.".format(end - start)
     return f1_score(target.values, y_pred, pos_label='yes')
@@ -330,13 +329,13 @@ def predict_labels(clf, features, target):
 
 def train_predict(clf, X_train, y_train, X_test, y_test):
     ''' Train and predict using a classifer based on F1 score. '''
-    
+
     # Indicate the classifier and the training set size
     print "Training a {} using a training set size of {}. . .".format(clf.__class__.__name__, len(X_train))
-    
+
     # Train the classifier
     train_classifier(clf, X_train, y_train)
-    
+
     # Print the results of prediction for both training and testing
     print "F1 score for training set: {:.4f}.".format(predict_labels(clf, X_train, y_train))
     print "F1 score for test set: {:.4f}.".format(predict_labels(clf, X_test, y_test))
@@ -373,7 +372,7 @@ for clf in [clf_A, clf_B, clf_C]:
     for i, n in enumerate([100, 200, 300]):
         train_predict(clf, X_train[:n], y_train[:n], X_test, y_test)
         if i < 2: print "----------------"
-            
+
 
 print "=============================================================="
 print '''
@@ -384,9 +383,9 @@ print "F1 score for predicting all \"yes\" on test set: {:.4f}".format(
 ```
 
     ==============================================================
-    
-    SVC: 
-    
+
+    SVC:
+
     Training a SVC using a training set size of 100. . .
     Trained model in 0.0019 seconds
     Made predictions in 0.0011 seconds.
@@ -408,9 +407,9 @@ print "F1 score for predicting all \"yes\" on test set: {:.4f}".format(
     Made predictions in 0.0031 seconds.
     F1 score for test set: 0.8163.
     ==============================================================
-    
-    KNeighborsClassifier: 
-    
+
+    KNeighborsClassifier:
+
     Training a KNeighborsClassifier using a training set size of 100. . .
     Trained model in 0.0012 seconds
     Made predictions in 0.0020 seconds.
@@ -432,9 +431,9 @@ print "F1 score for predicting all \"yes\" on test set: {:.4f}".format(
     Made predictions in 0.0022 seconds.
     F1 score for test set: 0.7752.
     ==============================================================
-    
-    AdaBoostClassifier: 
-    
+
+    AdaBoostClassifier:
+
     Training a AdaBoostClassifier using a training set size of 100. . .
     Trained model in 0.0369 seconds
     Made predictions in 0.0022 seconds.
@@ -456,9 +455,9 @@ print "F1 score for predicting all \"yes\" on test set: {:.4f}".format(
     Made predictions in 0.0011 seconds.
     F1 score for test set: 0.7852.
     ==============================================================
-    
+
     We can benchmark the F1 scores of each of the classifiers to the score below:
-    
+
     F1 score for predicting all "yes" on test set: 0.8050
 
 
@@ -497,7 +496,7 @@ Edit the cell below to see how a table can be designed in [Markdown](https://git
 ----
 
 ## Choosing the Best Model
-In this final section, you will choose from the three supervised learning models the *best* model to use on the student data. You will then perform a grid search optimization for the model over the entire training set (`X_train` and `y_train`) by tuning at least one parameter to improve upon the untuned model's F<sub>1</sub> score. 
+In this final section, you will choose from the three supervised learning models the *best* model to use on the student data. You will then perform a grid search optimization for the model over the entire training set (`X_train` and `y_train`) by tuning at least one parameter to improve upon the untuned model's F<sub>1</sub> score.
 
 ### Question 3 - Chosing the Best Model
 *Based on the experiments you performed earlier, in one to two paragraphs, explain to the board of supervisors what single model you chose as the best model. Which model is generally the most appropriate based on the available data, limited resources, cost, and performance?*
@@ -552,7 +551,7 @@ parameters = {'kernel':('linear', 'poly', 'rbf', 'sigmoid')}
 # Initialize the classifier
 clf = SVC()
 
-# Make an f1 scoring function using 'make_scorer' 
+# Make an f1 scoring function using 'make_scorer'
 f1_scorer = make_scorer(f1_score, pos_label = 'yes')
 
 # Perform grid search on the classifier using the f1_scorer as the scoring method
